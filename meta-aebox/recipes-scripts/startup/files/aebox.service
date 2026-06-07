@@ -1,0 +1,16 @@
+[Unit]
+Description=aebox
+After=network.target
+
+[Service]
+Type=exec
+WorkingDirectory=/opt/aebox
+ExecStartPre=/opt/aebox/aebox-launcher.sh
+ExecStart=/opt/aebox/aebox
+Restart=always
+RestartSec=5
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

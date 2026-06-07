@@ -1,0 +1,15 @@
+diff --git a/imx6ull-colibri-eval-v3.dtsi.orig b/imx6ull-colibri-eval-v3.dtsi
+index 692ef26..a347143 100644
+--- a/arch/arm/boot/dts/imx6ull-colibri-eval-v3.dtsi
++++ b/arch/arm/boot/dts/imx6ull-colibri-eval-v3.dtsi
+@@ -105,6 +105,10 @@
+ 	status = "okay";
+ };
+ 
++&uart6 {
++	status = "okay";
++};
++
+ &usbotg1 {
+ 	disable-over-current;
+ 	vbus-supply = <&reg_usbh_vbus>;

@@ -1,0 +1,87 @@
+diff --git a/imx6ull-colibri.dtsi.orig b/imx6ull-colibri.dtsi
+index 336ab2e..e46f8a4 100644
+--- a/arch/arm/boot/dts/imx6ull-colibri.dtsi
++++ b/arch/arm/boot/dts/imx6ull-colibri.dtsi
+@@ -60,6 +60,7 @@
+ 		};
+ 	};
+ 
++
+ 	panel_dpi: panel-dpi {
+ 		compatible = "edt,et057090dhu";
+ 		backlight = <&backlight>;
+@@ -115,6 +116,11 @@
+ 	};
+ };
+ 
++&gpio3 {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio_preq>;
++};
++
+ &adc1 {
+ 	vref-supply = <&reg_module_3v3_avdd>;
+ 	pinctrl-names = "default";
+@@ -296,6 +302,13 @@
+ 	fsl,dte-mode;
+ };
+ 
++/* Colibri UART_D for the AEBOX Energy meter */
++&uart6 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart6>;
++	fsl,dte-mode;
++};
++
+ /* Colibri USBC */
+ &usbotg1 {
+ 	dr_mode = "otg";
+@@ -450,9 +463,9 @@
+ 	pinctrl_gpio2: gpio2grp { /* Camera */
+ 		fsl,pins = <
+ 			MX6UL_PAD_CSI_DATA04__GPIO4_IO25	0x10b0 /* SODIMM 69 */
+-			MX6UL_PAD_CSI_MCLK__GPIO4_IO17		0x10b0 /* SODIMM 75 */
++			/*MX6UL_PAD_CSI_MCLK__GPIO4_IO17        0x10b0    SODIMM 75 */
+ 			MX6UL_PAD_CSI_DATA06__GPIO4_IO27	0x10b0 /* SODIMM 85 */
+-			MX6UL_PAD_CSI_PIXCLK__GPIO4_IO18	0x10b0 /* SODIMM 96 */
++			/*MX6UL_PAD_CSI_PIXCLK__GPIO4_IO18	0x10b0    SODIMM 96 */
+ 			MX6UL_PAD_CSI_DATA05__GPIO4_IO26	0x10b0 /* SODIMM 98 */
+ 		>;
+ 	};
+@@ -551,7 +564,7 @@
+ 
+ 	pinctrl_lcdif_dat: lcdifdatgrp {
+ 		fsl,pins = <
+-			MX6UL_PAD_LCD_DATA00__LCDIF_DATA00 0x00079	/* SODIMM 76 */
++		/*	MX6UL_PAD_LCD_DATA00__LCDIF_DATA00 0x00079	/* SODIMM 76 */
+ 			MX6UL_PAD_LCD_DATA01__LCDIF_DATA01 0x00079	/* SODIMM 70 */
+ 			MX6UL_PAD_LCD_DATA02__LCDIF_DATA02 0x00079	/* SODIMM 60 */
+ 			MX6UL_PAD_LCD_DATA03__LCDIF_DATA03 0x00079	/* SODIMM 58 */
+@@ -638,6 +651,14 @@
+ 		>;
+ 	};
+ 
++	pinctrl_uart6: uart6-grp {
++		fsl,pins = <
++			MX6UL_PAD_CSI_MCLK__UART6_DTE_RX	0x1b0b1 /* SODIMM 75 */
++			MX6UL_PAD_CSI_PIXCLK__UART6_DTE_TX	0x1b0b1 /* SODIMM 96 */
++
++		>;
++	};
++
+ 	pinctrl_usbh_reg: usbhreggrp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_GPIO1_IO02__GPIO1_IO02	0x10b0 /* SODIMM 129 / USBH_PEN */
+@@ -710,6 +731,12 @@
+ 			MX6UL_PAD_LCD_RESET__WDOG1_WDOG_ANY    0x30b0
+ 		>;
+ 	};
++
++	pinctrl_gpio_preq: gpiopreq {
++                fsl,pins = <
++			MX6UL_PAD_LCD_DATA00__GPIO3_IO05           0x010b0  /* SODIMM 76 for AEBOX P1-REQ signal*/
++		>;
++        };
+ };
+ 
+ &iomuxc_snvs {

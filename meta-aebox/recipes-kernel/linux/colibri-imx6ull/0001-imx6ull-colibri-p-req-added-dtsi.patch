@@ -1,0 +1,46 @@
+diff --git a/imx6ull-colibri.dtsi.orig b/imx6ull-colibri.dtsi
+index 336ab2e..1ff5af1 100644
+--- a/arch/arm/boot/dts/imx6ull-colibri.dtsi
++++ b/arch/arm/boot/dts/imx6ull-colibri.dtsi
+@@ -60,6 +60,19 @@
+ 		};
+ 	};
+ 
++	p_req {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio_preq>;
++
++		req0: user1 {
++		label = "p1_req";
++			gpios = <&gpio3 5 GPIO_ACTIVE_HIGH>; /* SODIMM 76 */
++			default-state = "off";
++			linux,default-trigger = "mmc0";
++		};
++	};
++
+ 	panel_dpi: panel-dpi {
+ 		compatible = "edt,et057090dhu";
+ 		backlight = <&backlight>;
+@@ -551,7 +564,7 @@
+ 
+ 	pinctrl_lcdif_dat: lcdifdatgrp {
+ 		fsl,pins = <
+-			MX6UL_PAD_LCD_DATA00__LCDIF_DATA00 0x00079	/* SODIMM 76 */
++		/*	MX6UL_PAD_LCD_DATA00__LCDIF_DATA00 0x00079	/* SODIMM 76 */
+ 			MX6UL_PAD_LCD_DATA01__LCDIF_DATA01 0x00079	/* SODIMM 70 */
+ 			MX6UL_PAD_LCD_DATA02__LCDIF_DATA02 0x00079	/* SODIMM 60 */
+ 			MX6UL_PAD_LCD_DATA03__LCDIF_DATA03 0x00079	/* SODIMM 58 */
+@@ -710,6 +723,12 @@
+ 			MX6UL_PAD_LCD_RESET__WDOG1_WDOG_ANY    0x30b0
+ 		>;
+ 	};
++
++	pinctrl_gpio_preq: gpiopreq {
++                fsl,pins = <
++			MX6UL_PAD_LCD_DATA00__GPIO3_IO05           0x010b0  /* SODIMM 76 for AEBOX P1-REQ signal*/
++		>;
++        };
+ };
+ 
+ &iomuxc_snvs {
